@@ -19,3 +19,8 @@ Follow these steps to set up and run the app on your local machine:
    ```bash
    git clone https://github.com/AbdeChk/Schopenhauer-Visualizing-Texts-of-Wisdom.git
    cd Schopenhauer-Visualizing-Texts-of-Wisdom
+   # Create and activate your virtual environment
+   pip install -r requirements.txt
+   streamlit run app.py
+
+
