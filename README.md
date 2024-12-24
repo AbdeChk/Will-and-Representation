@@ -15,7 +15,7 @@ Before running the project, ensure you have the following installed:
 
 Follow these steps to set up and run the app on your local machine:
 
-1. **Clone the repository**:
+1. **steps**:
    ```bash
    git clone https://github.com/AbdeChk/Schopenhauer-Visualizing-Texts-of-Wisdom.git
    cd Schopenhauer-Visualizing-Texts-of-Wisdom
