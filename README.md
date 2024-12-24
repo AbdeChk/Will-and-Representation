@@ -1,7 +1,7 @@
 # Schopenhauer: Visualizing Texts of Wisdom 📚
 
-A simple  web-based application leveraging Natural Language Processing techniques to analyze and explore Schopenhauer's philosophical works through interactive visualizations.
 ![Alt Text](./img/v1.gif)
+=======
 
 ## Prerequisites
 
