@@ -13,5 +13,5 @@ Follow these steps to set up and run the app on your local machine:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/AbdeChk/Philosophical-Snapshots-Schopenhauer-NLP-Dashboard.git
-   cd Philosophical-Snapshots-Schopenhauer-NLP-Dashboard
+   git clone https://github.com/AbdeChk/Schopenhauer-Visualizing-Texts-of-Wisdom.git
+   cd Schopenhauer-Visualizing-Texts-of-Wisdom
