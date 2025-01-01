@@ -1,14 +1,9 @@
-# Schopenhauer: Visualizing Texts of Wisdom 📚
-
-![Alt Text](./img/v1.gif)
-=======
-
 ## Prerequisites
 
 Before running the project, ensure you have the following installed:
 - [Python 3.x](https://www.python.org/downloads/)
 - [pip](https://pip.pypa.io/en/stable/)
-- Git
+- [Git](https://git-scm.com/)
 
 ## Installation
 
