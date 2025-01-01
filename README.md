@@ -41,7 +41,3 @@ streamlit run app.py
 ```
 
 The application will open in your default web browser at `http://localhost:8501`.
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
