@@ -3,7 +3,7 @@
 ### 📖 About This Repository
 This project collects and analyzes the works of **Arthur Schopenhauer**. It provides simple metrics on his texts, including:
 
-- **Network similarity** between words and passages  
+- **Network similarity** between books  
 - **Sentiment analysis** of key writings  
 - **Word counts** and **bar charts** for easy visualization  
 
