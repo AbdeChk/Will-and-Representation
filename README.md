@@ -1,9 +1,33 @@
+# Will-and-Representation
+
+### 📖 About This Repository
+This project collects and analyzes the works of **Arthur Schopenhauer**. It provides simple metrics on his texts, including:
+
+- **Network similarity** between words and passages  
+- **Sentiment analysis** of key writings  
+- **Word counts** and **bar charts** for easy visualization  
+
+> **Note:** Some books have not been processed properly and may not appear correctly in the analyses.
+
+---
+
+## Features
+- Explore word networks and similarity patterns across Schopenhauer’s texts  
+- Analyze sentiment trends in his writings  
+- View word counts and distributions via bar charts  
+- Compare patterns across multiple texts  
+
+---
+
 ## Prerequisites
 
 Before running the project, ensure you have the following installed:
-- [Python 3.x](https://www.python.org/downloads/)
-- [pip](https://pip.pypa.io/en/stable/)
-- [Git](https://git-scm.com/)
+
+- [Python 3.x](https://www.python.org/downloads/)  
+- [pip](https://pip.pypa.io/en/stable/)  
+- [Git](https://git-scm.com/)  
+
+---
 
 ## Installation
 
