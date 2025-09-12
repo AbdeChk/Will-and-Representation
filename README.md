@@ -11,12 +11,12 @@ Follow these steps to set up and run the app on your local machine:
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/AbdeChk/Schopenhauer-Visualizing-Texts-of-Wisdom.git
+git clone https://github.com/AbdeChk/Will-and-Representation.git
 ```
 
 2. Navigate to the project directory:
 ```bash
-cd Schopenhauer-Visualizing-Texts-of-Wisdom
+cd Will-and-Representation
 ```
 
 3. Create and activate a virtual environment (recommended):
