@@ -10,6 +10,9 @@ This project collects and analyzes the works of **Arthur Schopenhauer**. It prov
 > **Note:** Some books have not been processed properly and may not appear correctly in the analyses.
 
 ---
+![Alt text](assets/gif.gif)
+
+---
 
 ## Prerequisites
 
