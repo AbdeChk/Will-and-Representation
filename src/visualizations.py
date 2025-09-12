@@ -8,23 +8,55 @@ from collections import Counter
 from nltk import word_tokenize
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+from functools import lru_cache
 import nltk
-nltk.download('punkt_tab')
+
+nltk.download('punkt')
+
 sns.set_style("whitegrid")  
 sns.despine(top=True, right=True)
 
-def create_word_frequency_plot(df, selected_book):
-    """word frequency bar plot."""
-    will = df[df['book_title'] == selected_book]['text_clean']
-    tokens = word_tokenize(will.iloc[0])
+_tfidf_cache = {}
+
+@lru_cache(maxsize=128)
+def _tokenize_text(text: str):
+    return tuple(word_tokenize(text)) 
+
+def _get_tokens(df, selected_book):
+    row = df.loc[df['book_title'] == selected_book, 'text_clean']
+    if row.empty:
+        return []
+    return list(_tokenize_text(row.iloc[0]))
+
+def _get_word_freq(tokens, top_n=None):
     freq = Counter(tokens)
-    sorted_freq = dict(sorted(freq.items(), key=lambda x: x[1], reverse=True))
+    if top_n:
+        return dict(freq.most_common(top_n))
+    return dict(freq)
+
+def _get_tfidf(df):
+    df_id = id(df) 
+    if df_id not in _tfidf_cache:
+        vectorizer = TfidfVectorizer()
+        tfidf_matrix = vectorizer.fit_transform(df['text_clean'])
+        similarity_matrix = cosine_similarity(tfidf_matrix)
+        _tfidf_cache[df_id] = (vectorizer, similarity_matrix, df['book_title'].tolist())
+    return _tfidf_cache[df_id]
+
+def create_word_frequency_plot(df, selected_book):
+    tokens = _get_tokens(df, selected_book)
+    if not tokens:
+        raise ValueError(f"No text found for book '{selected_book}'")
     
-    top_words = list(sorted_freq.keys())[:15]
-    top_freq = list(sorted_freq.values())[:15]
+    freq = _get_word_freq(tokens, top_n=15)
     
     fig, ax = plt.subplots(figsize=(15, 15))
-    sns.barplot(y=top_words, x=top_freq, ax=ax, palette=["#333333"])
+    sns.barplot(
+        y=list(freq.keys()), 
+        x=list(freq.values()), 
+        ax=ax, 
+        palette=["#333333"]
+    )
     plt.xlabel('Frequency', fontsize=25)
     plt.xticks(fontsize=30)
     plt.yticks(fontsize=30)
@@ -32,10 +64,11 @@ def create_word_frequency_plot(df, selected_book):
     return fig
 
 def create_wordcloud(df, selected_book):
-    """ word cloud visualization."""
-    will = df[df['book_title'] == selected_book]['text_clean']
-    tokens = word_tokenize(will.iloc[0])
-    freq = Counter(tokens)
+    tokens = _get_tokens(df, selected_book)
+    if not tokens:
+        raise ValueError(f"No text found for book '{selected_book}'")
+    
+    freq = _get_word_freq(tokens)
     
     wordcloud = WordCloud(
         width=400, height=400,
@@ -50,7 +83,10 @@ def create_wordcloud(df, selected_book):
     return wordcloud.to_image()
 
 def create_sentiment_plot(df, selected_book):
-    """sentiment analysis pie chart."""
+    tokens = _get_tokens(df, selected_book)
+    if not tokens:
+        raise ValueError(f"No text found for book '{selected_book}'")
+
     def analyze_sentiment(word):
         analysis = TextBlob(word)
         if analysis.sentiment.polarity > 0:
@@ -59,8 +95,6 @@ def create_sentiment_plot(df, selected_book):
             return 'Negative'
         return 'Neutral'
     
-    will = df[df['book_title'] == selected_book]['text_clean']
-    tokens = word_tokenize(will.iloc[0])
     sentiments = [analyze_sentiment(word) for word in tokens]
     sentiment_counts = pd.Series(sentiments).value_counts()
     
@@ -80,21 +114,22 @@ def create_sentiment_plot(df, selected_book):
     return fig
 
 def create_similarity_network(df, selected_book):
-    """book similarity network."""
-    vectorizer = TfidfVectorizer()
-    tfidf_matrix = vectorizer.fit_transform(df['text_clean'])
-    similarity_matrix = cosine_similarity(tfidf_matrix, tfidf_matrix)
-    
+    if selected_book not in df['book_title'].values:
+        raise ValueError(f"Book '{selected_book}' not found in DataFrame")
+
+    vectorizer, similarity_matrix, titles = _get_tfidf(df)
+    selected_idx = titles.index(selected_book)
+
     fig, ax = plt.subplots(figsize=(6, 6))
     G = nx.Graph()
     
-    for i, row in df.iterrows():
-        G.add_node(row['book_title'])
-        if row['book_title'] != selected_book:
+    for i, title in enumerate(titles):
+        G.add_node(title)
+        if title != selected_book:
             G.add_edge(
                 selected_book,
-                row['book_title'],
-                weight=similarity_matrix[df.index[df['book_title'] == selected_book][0]][i]
+                title,
+                weight=similarity_matrix[selected_idx, i]
             )
     
     pos = nx.spring_layout(G)
