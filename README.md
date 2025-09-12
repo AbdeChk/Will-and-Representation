@@ -11,14 +11,6 @@ This project collects and analyzes the works of **Arthur Schopenhauer**. It prov
 
 ---
 
-## Features
-- Explore word networks and similarity patterns across Schopenhauer’s texts  
-- Analyze sentiment trends in his writings  
-- View word counts and distributions via bar charts  
-- Compare patterns across multiple texts  
-
----
-
 ## Prerequisites
 
 Before running the project, ensure you have the following installed:
