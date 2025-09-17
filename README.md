@@ -1,6 +1,5 @@
 # Will-and-Representation
 
-### About This Repository
 This project collects and analyzes the works of **Arthur Schopenhauer**. It provides simple metrics on his texts, including:
 
 - **Network similarity** between books  
